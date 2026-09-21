@@ -1,0 +1,135 @@
+########## TESTE 1 - OPERACOES CRUD (INSERT/SELECT/UPDATE/DELETE) ##########
+
+--- SAIDA DO CLIENTE (processo client.exe) ---
+=== Cliente gerenciador de banco ===
+Conectado ao servidor.
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   id:   nome:   Resposta (origem op=2 id=10): INSERT ok: id=10 nome='Joao Pereira'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   id:   Resposta (origem op=1 id=10): SELECT: 1 registro(s) retornados
+    -> id=10 nome='Joao Pereira'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   id:   novo nome:   Resposta (origem op=4 id=10): UPDATE ok: id=10 novo nome='Joao Santos'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   id:   Resposta (origem op=1 id=10): SELECT: 1 registro(s) retornados
+    -> id=10 nome='Joao Santos'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   nome:   Resposta (origem op=1 id=0): SELECT: 1 registro(s) retornados
+    -> id=10 nome='Joao Santos'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   id:   Resposta (origem op=3 id=10): DELETE ok: id=10 removido
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   id:   Resposta (origem op=1 id=10): SELECT: nenhum registro encontrado
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   nome:   Resposta (origem op=1 id=0): SELECT: 1 registro(s) retornados
+    -> id=2 nome='Bruno'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   Resposta (origem op=1 id=0): SELECT: 3 registro(s) retornados
+    -> id=1 nome='Ana'
+    -> id=2 nome='Bruno'
+    -> id=3 nome='Carla'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha: 
+Cliente encerrado.
+
+--- SAIDA DO SERVIDOR (processo server.exe) ---
+=== Servidor gerenciador de banco ===
+Pool de threads: 4
+Aguardando cliente conectar...
+Cliente conectado. Processando requisicoes...
+Sinal de encerramento recebido.
+=== Tabela final (3 registros) ===
+  id=1 nome='Ana'
+  id=2 nome='Bruno'
+  id=3 nome='Carla'
+Servidor encerrado.

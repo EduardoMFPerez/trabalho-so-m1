@@ -1,0 +1,8 @@
+########## TESTE 5 - ERRO CONTROLADO: CLIENTE SEM SERVIDOR ATIVO ##########
+
+--- state: nenhum server.exe em execucao ---
+  (nenhum server.exe rodando)
+
+--- cliente tenta conectar (sem servidor) ---
+Servidor nao esta rodando. Inicie o servidor primeiro.
+=== Cliente gerenciador de banco ===

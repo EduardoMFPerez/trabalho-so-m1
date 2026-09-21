@@ -1,0 +1,91 @@
+########## TESTE 2 - PARALELISMO: POOL DE 8 THREADS x 60 REQUISICOES ##########
+
+--- SAIDA DO SERVIDOR (server.exe 8) ---
+=== Servidor gerenciador de banco ===
+Pool de threads: 8
+Aguardando cliente conectar...
+Cliente conectado. Processando requisicoes...
+Sinal de encerramento recebido.
+=== Tabela final (6 registros) ===
+  id=2 nome='Felipe'
+  id=3 nome='Carla'
+  id=22 nome='Lucas'
+  id=1 nome='Karen'
+  id=12 nome='Bruno'
+  id=23 nome='Eduarda'
+Servidor encerrado.
+
+--- LOG (server_log.txt) - cada linha identifica a thread que atendeu ---
+[20/09/2026 23:09:43] [thread 2] UPDATE: id=18 nao encontrado
+[20/09/2026 23:09:43] [thread 3] SELECT: 1 registro(s) retornados
+[20/09/2026 23:09:43] [thread 5] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 5] DELETE: id=15 nao encontrado
+[20/09/2026 23:09:43] [thread 8] DELETE: id=15 nao encontrado
+[20/09/2026 23:09:43] [thread 9] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 6] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 7] DELETE: id=6 nao encontrado
+[20/09/2026 23:09:43] [thread 2] DELETE: id=25 nao encontrado
+[20/09/2026 23:09:43] [thread 3] DELETE: id=22 nao encontrado
+[20/09/2026 23:09:43] [thread 4] INSERT ok: id=10 nome='Lucas'
+[20/09/2026 23:09:43] [thread 4] DELETE: id=9 nao encontrado
+[20/09/2026 23:09:43] [thread 8] UPDATE: id=17 nao encontrado
+[20/09/2026 23:09:43] [thread 9] INSERT ok: id=11 nome='Bruno'
+[20/09/2026 23:09:43] [thread 6] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 9] DELETE: id=23 nao encontrado
+[20/09/2026 23:09:43] [thread 2] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 3] DELETE: id=21 nao encontrado
+[20/09/2026 23:09:43] [thread 5] DELETE: id=25 nao encontrado
+[20/09/2026 23:09:43] [thread 4] UPDATE ok: id=10 novo nome='Lucas'
+[20/09/2026 23:09:43] [thread 8] UPDATE: id=15 nao encontrado
+[20/09/2026 23:09:43] [thread 7] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 6] UPDATE: id=24 nao encontrado
+[20/09/2026 23:09:43] [thread 6] UPDATE: id=5 nao encontrado
+[20/09/2026 23:09:43] [thread 2] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 3] DELETE: id=7 nao encontrado
+[20/09/2026 23:09:43] [thread 5] DELETE ok: id=1 removido
+[20/09/2026 23:09:43] [thread 4] DELETE: id=15 nao encontrado
+[20/09/2026 23:09:43] [thread 8] UPDATE: id=24 nao encontrado
+[20/09/2026 23:09:43] [thread 8] DELETE: id=13 nao encontrado
+[20/09/2026 23:09:43] [thread 9] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 6] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 2] UPDATE: id=20 nao encontrado
+[20/09/2026 23:09:43] [thread 3] UPDATE: id=18 nao encontrado
+[20/09/2026 23:09:43] [thread 6] DELETE ok: id=11 removido
+[20/09/2026 23:09:43] [thread 4] SELECT: 1 registro(s) retornados
+[20/09/2026 23:09:43] [thread 7] UPDATE: id=9 nao encontrado
+[20/09/2026 23:09:43] [thread 7] DELETE: id=1 nao encontrado
+[20/09/2026 23:09:43] [thread 7] INSERT ok: id=1 nome='Karen'
+[20/09/2026 23:09:43] [thread 7] SELECT: 1 registro(s) retornados
+[20/09/2026 23:09:43] [thread 2] INSERT ok: id=22 nome='Isabela'
+[20/09/2026 23:09:43] [thread 3] UPDATE ok: id=22 novo nome='Lucas'
+[20/09/2026 23:09:43] [thread 6] UPDATE: id=23 nao encontrado
+[20/09/2026 23:09:43] [thread 4] DELETE: id=8 nao encontrado
+[20/09/2026 23:09:43] [thread 8] DELETE: id=14 nao encontrado
+[20/09/2026 23:09:43] [thread 9] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 5] INSERT falhou: ja existe id=3
+[20/09/2026 23:09:43] [thread 7] UPDATE: id=14 nao encontrado
+[20/09/2026 23:09:43] [thread 2] UPDATE ok: id=2 novo nome='Felipe'
+[20/09/2026 23:09:43] [thread 3] UPDATE: id=19 nao encontrado
+[20/09/2026 23:09:43] [thread 6] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 4] DELETE: id=17 nao encontrado
+[20/09/2026 23:09:43] [thread 4] INSERT ok: id=23 nome='Eduarda'
+[20/09/2026 23:09:43] [thread 9] DELETE: id=19 nao encontrado
+[20/09/2026 23:09:43] [thread 5] UPDATE: id=12 nao encontrado
+[20/09/2026 23:09:43] [thread 7] DELETE ok: id=10 removido
+[20/09/2026 23:09:43] [thread 2] INSERT ok: id=12 nome='Bruno'
+[20/09/2026 23:09:43] [thread 3] UPDATE: id=19 nao encontrado
+[20/09/2026 23:09:43] [thread 6] DELETE: id=18 nao encontrado
+[20/09/2026 23:09:43] [thread 8] INSERT falhou: ja existe id=22
+
+--- THREADS DISTINTAS QUE PROCESSARAM REQUISICOES ---
+thread 2
+thread 3
+thread 4
+thread 5
+thread 6
+thread 7
+thread 8
+thread 9
+
+--- TOTAL DE REQUISICOES PROCESSADAS NO LOG ---
+60

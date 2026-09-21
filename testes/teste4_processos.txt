@@ -1,0 +1,4 @@
+[captura t=1] os DOIS processos de SO vivos simultaneamente:
+
+server.exe                   26296 Console                    1      5.332 K
+client.exe                   21296 Console                    1      4.160 K

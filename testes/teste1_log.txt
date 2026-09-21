@@ -1,0 +1,9 @@
+[20/09/2026 23:09:37] [thread 3] INSERT ok: id=10 nome='Joao Pereira'
+[20/09/2026 23:09:37] [thread 2] SELECT: 1 registro(s) retornados
+[20/09/2026 23:09:37] [thread 4] UPDATE ok: id=10 novo nome='Joao Santos'
+[20/09/2026 23:09:37] [thread 5] SELECT: 1 registro(s) retornados
+[20/09/2026 23:09:37] [thread 3] SELECT: 1 registro(s) retornados
+[20/09/2026 23:09:37] [thread 2] DELETE ok: id=10 removido
+[20/09/2026 23:09:37] [thread 4] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:37] [thread 5] SELECT: 1 registro(s) retornados
+[20/09/2026 23:09:37] [thread 3] SELECT: 3 registro(s) retornados

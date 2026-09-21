@@ -1,0 +1,7 @@
+# Compilados e artefatos de execução
+*.exe
+server_log.txt
+build/
+
+# Configurações locais do VS Code
+.vscode/

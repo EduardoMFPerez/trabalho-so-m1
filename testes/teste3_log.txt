@@ -1,0 +1,11 @@
+[20/09/2026 23:10:06] [thread 3] INSERT ok: id=100 nome='Concorrente'
+[20/09/2026 23:10:06] [thread 4] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 2] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 5] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 6] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 7] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 8] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 9] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 3] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 4] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 2] SELECT: 1 registro(s) retornados

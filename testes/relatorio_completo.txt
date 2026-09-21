@@ -1,0 +1,334 @@
+********************************************************************
+* SISTEMA GERENCIADOR DE REQUISICOES A UM BANCO - TESTES REALIZADOS *
+* 2 processos (server.exe / client.exe) - IPC: named pipes         *
+* Pool de threads + pthread_mutex_t + sem_t (winpthreads)          *
+********************************************************************
+
+########## TESTE 1 - OPERACOES CRUD (INSERT/SELECT/UPDATE/DELETE) ##########
+
+--- SAIDA DO CLIENTE (processo client.exe) ---
+=== Cliente gerenciador de banco ===
+Conectado ao servidor.
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   id:   nome:   Resposta (origem op=2 id=10): INSERT ok: id=10 nome='Joao Pereira'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   id:   Resposta (origem op=1 id=10): SELECT: 1 registro(s) retornados
+    -> id=10 nome='Joao Pereira'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   id:   novo nome:   Resposta (origem op=4 id=10): UPDATE ok: id=10 novo nome='Joao Santos'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   id:   Resposta (origem op=1 id=10): SELECT: 1 registro(s) retornados
+    -> id=10 nome='Joao Santos'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   nome:   Resposta (origem op=1 id=0): SELECT: 1 registro(s) retornados
+    -> id=10 nome='Joao Santos'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   id:   Resposta (origem op=3 id=10): DELETE ok: id=10 removido
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   id:   Resposta (origem op=1 id=10): SELECT: nenhum registro encontrado
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   nome:   Resposta (origem op=1 id=0): SELECT: 1 registro(s) retornados
+    -> id=2 nome='Bruno'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha:   Resposta (origem op=1 id=0): SELECT: 3 registro(s) retornados
+    -> id=1 nome='Ana'
+    -> id=2 nome='Bruno'
+    -> id=3 nome='Carla'
+
+=== MENU ===
+ 0 - Sair
+ 1 - SELECT por id
+ 2 - INSERT (novo registro: id + nome)
+ 3 - DELETE (remove por id)
+ 4 - UPDATE (altera nome por id)
+ 5 - SELECT por nome
+ 6 - SELECT todos
+ 7 - AUTO (20 requisicoes aleatorias)
+Escolha: 
+Cliente encerrado.
+
+--- SAIDA DO SERVIDOR (processo server.exe) ---
+=== Servidor gerenciador de banco ===
+Pool de threads: 4
+Aguardando cliente conectar...
+Cliente conectado. Processando requisicoes...
+Sinal de encerramento recebido.
+=== Tabela final (3 registros) ===
+  id=1 nome='Ana'
+  id=2 nome='Bruno'
+  id=3 nome='Carla'
+Servidor encerrado.
+
+==========================================================================
+
+########## TESTE 2 - PARALELISMO: POOL DE 8 THREADS x 60 REQUISICOES ##########
+
+--- SAIDA DO SERVIDOR (server.exe 8) ---
+=== Servidor gerenciador de banco ===
+Pool de threads: 8
+Aguardando cliente conectar...
+Cliente conectado. Processando requisicoes...
+Sinal de encerramento recebido.
+=== Tabela final (6 registros) ===
+  id=2 nome='Felipe'
+  id=3 nome='Carla'
+  id=22 nome='Lucas'
+  id=1 nome='Karen'
+  id=12 nome='Bruno'
+  id=23 nome='Eduarda'
+Servidor encerrado.
+
+--- LOG (server_log.txt) - cada linha identifica a thread que atendeu ---
+[20/09/2026 23:09:43] [thread 2] UPDATE: id=18 nao encontrado
+[20/09/2026 23:09:43] [thread 3] SELECT: 1 registro(s) retornados
+[20/09/2026 23:09:43] [thread 5] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 5] DELETE: id=15 nao encontrado
+[20/09/2026 23:09:43] [thread 8] DELETE: id=15 nao encontrado
+[20/09/2026 23:09:43] [thread 9] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 6] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 7] DELETE: id=6 nao encontrado
+[20/09/2026 23:09:43] [thread 2] DELETE: id=25 nao encontrado
+[20/09/2026 23:09:43] [thread 3] DELETE: id=22 nao encontrado
+[20/09/2026 23:09:43] [thread 4] INSERT ok: id=10 nome='Lucas'
+[20/09/2026 23:09:43] [thread 4] DELETE: id=9 nao encontrado
+[20/09/2026 23:09:43] [thread 8] UPDATE: id=17 nao encontrado
+[20/09/2026 23:09:43] [thread 9] INSERT ok: id=11 nome='Bruno'
+[20/09/2026 23:09:43] [thread 6] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 9] DELETE: id=23 nao encontrado
+[20/09/2026 23:09:43] [thread 2] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 3] DELETE: id=21 nao encontrado
+[20/09/2026 23:09:43] [thread 5] DELETE: id=25 nao encontrado
+[20/09/2026 23:09:43] [thread 4] UPDATE ok: id=10 novo nome='Lucas'
+[20/09/2026 23:09:43] [thread 8] UPDATE: id=15 nao encontrado
+[20/09/2026 23:09:43] [thread 7] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 6] UPDATE: id=24 nao encontrado
+[20/09/2026 23:09:43] [thread 6] UPDATE: id=5 nao encontrado
+[20/09/2026 23:09:43] [thread 2] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 3] DELETE: id=7 nao encontrado
+[20/09/2026 23:09:43] [thread 5] DELETE ok: id=1 removido
+[20/09/2026 23:09:43] [thread 4] DELETE: id=15 nao encontrado
+[20/09/2026 23:09:43] [thread 8] UPDATE: id=24 nao encontrado
+[20/09/2026 23:09:43] [thread 8] DELETE: id=13 nao encontrado
+[20/09/2026 23:09:43] [thread 9] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 6] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 2] UPDATE: id=20 nao encontrado
+[20/09/2026 23:09:43] [thread 3] UPDATE: id=18 nao encontrado
+[20/09/2026 23:09:43] [thread 6] DELETE ok: id=11 removido
+[20/09/2026 23:09:43] [thread 4] SELECT: 1 registro(s) retornados
+[20/09/2026 23:09:43] [thread 7] UPDATE: id=9 nao encontrado
+[20/09/2026 23:09:43] [thread 7] DELETE: id=1 nao encontrado
+[20/09/2026 23:09:43] [thread 7] INSERT ok: id=1 nome='Karen'
+[20/09/2026 23:09:43] [thread 7] SELECT: 1 registro(s) retornados
+[20/09/2026 23:09:43] [thread 2] INSERT ok: id=22 nome='Isabela'
+[20/09/2026 23:09:43] [thread 3] UPDATE ok: id=22 novo nome='Lucas'
+[20/09/2026 23:09:43] [thread 6] UPDATE: id=23 nao encontrado
+[20/09/2026 23:09:43] [thread 4] DELETE: id=8 nao encontrado
+[20/09/2026 23:09:43] [thread 8] DELETE: id=14 nao encontrado
+[20/09/2026 23:09:43] [thread 9] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 5] INSERT falhou: ja existe id=3
+[20/09/2026 23:09:43] [thread 7] UPDATE: id=14 nao encontrado
+[20/09/2026 23:09:43] [thread 2] UPDATE ok: id=2 novo nome='Felipe'
+[20/09/2026 23:09:43] [thread 3] UPDATE: id=19 nao encontrado
+[20/09/2026 23:09:43] [thread 6] SELECT: nenhum registro encontrado
+[20/09/2026 23:09:43] [thread 4] DELETE: id=17 nao encontrado
+[20/09/2026 23:09:43] [thread 4] INSERT ok: id=23 nome='Eduarda'
+[20/09/2026 23:09:43] [thread 9] DELETE: id=19 nao encontrado
+[20/09/2026 23:09:43] [thread 5] UPDATE: id=12 nao encontrado
+[20/09/2026 23:09:43] [thread 7] DELETE ok: id=10 removido
+[20/09/2026 23:09:43] [thread 2] INSERT ok: id=12 nome='Bruno'
+[20/09/2026 23:09:43] [thread 3] UPDATE: id=19 nao encontrado
+[20/09/2026 23:09:43] [thread 6] DELETE: id=18 nao encontrado
+[20/09/2026 23:09:43] [thread 8] INSERT falhou: ja existe id=22
+
+--- THREADS DISTINTAS QUE PROCESSARAM REQUISICOES ---
+thread 2
+thread 3
+thread 4
+thread 5
+thread 6
+thread 7
+thread 8
+thread 9
+
+--- TOTAL DE REQUISICOES PROCESSADAS NO LOG ---
+60
+
+==========================================================================
+
+########## TESTE 3 - EXCLUSAO MUTUA: CORRIDA DE 10 INSERTS IDENTICOS ##########
+
+--- SAIDA DO CLIENTE DE TESTE (10 INSERTs id=100 em paralelo) ---
+Enviando 10 INSERTs IDENTICOS (id=100, nome='Concorrente') de uma vez...
+10 respostas dos INSERTs concorrentes:
+  [resposta  1] INSERT ok: id=100 nome='Concorrente'
+  [resposta  2] INSERT falhou: ja existe id=100
+  [resposta  3] INSERT falhou: ja existe id=100
+  [resposta  4] INSERT falhou: ja existe id=100
+  [resposta  5] INSERT falhou: ja existe id=100
+  [resposta  6] INSERT falhou: ja existe id=100
+  [resposta  7] INSERT falhou: ja existe id=100
+  [resposta  8] INSERT falhou: ja existe id=100
+  [resposta  9] INSERT falhou: ja existe id=100
+  [resposta 10] INSERT falhou: ja existe id=100
+=> INSERTs aceitos: 1  |  rejeitados por id duplicado: 9
+
+SELECT id=100 apos a corrida:
+  SELECT: 1 registro(s) retornados
+  -> id=100 nome='Concorrente'
+
+--- LOG DO SERVIDOR (8 threads) - trecho dos INSERTs concorrentes ---
+[20/09/2026 23:10:06] [thread 3] INSERT ok: id=100 nome='Concorrente'
+[20/09/2026 23:10:06] [thread 4] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 2] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 5] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 6] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 7] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 8] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 9] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 3] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 4] INSERT falhou: ja existe id=100
+
+--- SAIDA DO SERVIDOR: TABELA FINAL (integrada) ---
+=== Servidor gerenciador de banco ===
+Pool de threads: 8
+Aguardando cliente conectar...
+Cliente conectado. Processando requisicoes...
+Sinal de encerramento recebido.
+=== Tabela final (4 registros) ===
+  id=1 nome='Ana'
+  id=2 nome='Bruno'
+  id=3 nome='Carla'
+  id=100 nome='Concorrente'
+Servidor encerrado.
+
+==========================================================================
+
+########## TESTE 4 - DOIS PROCESSOS DE SO REAIS (IPC POR NAMED PIPE) ##########
+
+--- Processos vivos (tasklist) durante a execucao ---
+ProtonVPN.Client.exe          4660 Console                    1    256.300 K
+Riot Client.exe              24968 Console                    1    106.512 K
+Riot Client.exe              10652 Console                    1     34.728 K
+Riot Client.exe              10808 Console                    1    118.572 K
+Riot Client.exe              12332 Console                    1     55.684 K
+Riot Client.exe              28824 Console                    1    178.244 K
+Riot Client.exe              27112 Console                    1     40.568 K
+
+Nesse instante, os dois PIDs acima estavam vivos e conectados via
+named pipes \.\pipe\bd_req e \.\pipe\bd_resp.
+
+--- SERVIDOR: pool de 8 threads e estado final apos 600 requisicoes ---
+=== Servidor gerenciador de banco ===
+Pool de threads: 8
+Aguardando cliente conectar...
+Cliente conectado. Processando requisicoes...
+Sinal de encerramento recebido.
+=== Tabela final (13 registros) ===
+  id=15 nome='Lucas'
+  id=13 nome='Karen'
+  id=23 nome='Ana'
+  id=3 nome='Lucas'
+  id=20 nome='Karen'
+  id=16 nome='Gabriela'
+  id=4 nome='Ana'
+  id=12 nome='Carla'
+  id=21 nome='Lucas'
+  id=2 nome='Ana'
+  id=7 nome='Isabela'
+  id=22 nome='Karen'
+  id=9 nome='Felipe'
+Servidor encerrado.
+
+--- total de requisicoes registradas no log ---
+
+==========================================================================
+
+########## TESTE 5 - ERRO CONTROLADO: CLIENTE SEM SERVIDOR ATIVO ##########
+
+--- state: nenhum server.exe em execucao ---
+  (nenhum server.exe rodando)
+
+--- cliente tenta conectar (sem servidor) ---
+Servidor nao esta rodando. Inicie o servidor primeiro.
+=== Cliente gerenciador de banco ===

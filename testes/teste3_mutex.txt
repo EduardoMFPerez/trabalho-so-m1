@@ -1,0 +1,45 @@
+########## TESTE 3 - EXCLUSAO MUTUA: CORRIDA DE 10 INSERTS IDENTICOS ##########
+
+--- SAIDA DO CLIENTE DE TESTE (10 INSERTs id=100 em paralelo) ---
+Enviando 10 INSERTs IDENTICOS (id=100, nome='Concorrente') de uma vez...
+10 respostas dos INSERTs concorrentes:
+  [resposta  1] INSERT ok: id=100 nome='Concorrente'
+  [resposta  2] INSERT falhou: ja existe id=100
+  [resposta  3] INSERT falhou: ja existe id=100
+  [resposta  4] INSERT falhou: ja existe id=100
+  [resposta  5] INSERT falhou: ja existe id=100
+  [resposta  6] INSERT falhou: ja existe id=100
+  [resposta  7] INSERT falhou: ja existe id=100
+  [resposta  8] INSERT falhou: ja existe id=100
+  [resposta  9] INSERT falhou: ja existe id=100
+  [resposta 10] INSERT falhou: ja existe id=100
+=> INSERTs aceitos: 1  |  rejeitados por id duplicado: 9
+
+SELECT id=100 apos a corrida:
+  SELECT: 1 registro(s) retornados
+  -> id=100 nome='Concorrente'
+
+--- LOG DO SERVIDOR (8 threads) - trecho dos INSERTs concorrentes ---
+[20/09/2026 23:10:06] [thread 3] INSERT ok: id=100 nome='Concorrente'
+[20/09/2026 23:10:06] [thread 4] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 2] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 5] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 6] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 7] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 8] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 9] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 3] INSERT falhou: ja existe id=100
+[20/09/2026 23:10:06] [thread 4] INSERT falhou: ja existe id=100
+
+--- SAIDA DO SERVIDOR: TABELA FINAL (integrada) ---
+=== Servidor gerenciador de banco ===
+Pool de threads: 8
+Aguardando cliente conectar...
+Cliente conectado. Processando requisicoes...
+Sinal de encerramento recebido.
+=== Tabela final (4 registros) ===
+  id=1 nome='Ana'
+  id=2 nome='Bruno'
+  id=3 nome='Carla'
+  id=100 nome='Concorrente'
+Servidor encerrado.
